@@ -3,6 +3,7 @@ import { ShoppingCart, X, Plus, Minus, Trash2 } from 'lucide-react';
 import { useCartContext } from './CartProvider';
 import { useStoreContext } from './StoreProvider';
 import { getStripe } from '../../lib/stripe';
+import { CO2Pledge } from './CO2Pledge';
 import { formatPrice } from '../../lib/format';
 
 interface CartDrawerProps {
@@ -143,6 +144,14 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <p>{t.cart.total}</p>
                     <p>{formatPrice(cart.total, locale, currency)}</p>
+                  </div>
+                  <div className="mt-4">
+                    <CO2Pledge 
+                      amount={cart.total}
+                      locale={locale}
+                      currency={currency}
+                      storeName={store.name}
+                    />
                   </div>
                   <p className="mt-0.5 text-sm text-gray-500">
                     {t.cart.shippingNote}
