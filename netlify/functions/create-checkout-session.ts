@@ -37,7 +37,7 @@ export const handler: Handler = async (event) => {
           currency: 'dkk',
           product_data: {
             name: item.name,
-            images: item.image ? [item.image] : undefined
+            images: item.image ? [item.image] : []
           },
           unit_amount: Math.round(item.price * 100) // Convert to cents
         },
