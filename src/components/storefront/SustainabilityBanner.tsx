@@ -1,7 +1,7 @@
 import { Leaf, TreePine, Wind } from 'lucide-react';
 
 interface SustainabilityBannerProps {
-  storeName: string;
+  storeName: string;e
 }
 
 export function SustainabilityBanner({ storeName }: SustainabilityBannerProps) {
