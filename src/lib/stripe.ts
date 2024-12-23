@@ -13,12 +13,13 @@ export async function getStripe(storeId: string): Promise<Stripe | null> {
       .eq('store_id', storeId)
       .single();
 
-    if (!settings?.stripe_settings?.publishable_key) {
+    const publishableKey = settings?.stripe_settings?.live_publishable_key;
+    if (!publishableKey) {
       console.error('No Stripe publishable key found for store');
       return null;
     }
 
-    stripePromise = loadStripe(settings.stripe_settings.publishable_key);
+    stripePromise = loadStripe(publishableKey);
   }
   return stripePromise;
 }
