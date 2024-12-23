@@ -16,27 +16,29 @@ export function ProductGrid({ products, columns = 3 }: ProductGridProps) {
   const { colors } = settings.theme;
 
   return (
-    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${columns} gap-6`}>
+    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${columns} gap-8`}>
       {products.map((storeProduct) => {
         return (
           <div 
             key={storeProduct.id} 
-            className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300"
             onClick={() => navigate(`/products/${storeProduct.product?.slug}`)}
           >
             {storeProduct.product?.images?.[0] && (
-              <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden">
+              <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-100">
                 <img
                   src={storeProduct.product.images[0].url}
                   alt={storeProduct.product.name}
-                  className="object-cover object-center w-full h-full group-hover:opacity-75 transition-opacity"
+                  className="object-cover object-center w-full h-full group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
             )}
-            <div className="p-4">
-              <h3 className="text-lg font-medium text-gray-900">{storeProduct.product?.name}</h3>
-              <p className="mt-1 text-sm text-gray-500">{storeProduct.product?.description}</p>
-              <div className="mt-3 flex items-center justify-between">
+            <div className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                {storeProduct.product?.name}
+              </h3>
+              <p className="mt-2 text-sm text-gray-500 line-clamp-2">{storeProduct.product?.description}</p>
+              <div className="mt-4 flex items-center justify-between">
                 <p className="text-lg font-medium" style={{ color: colors.primary }}>
                   {formatPrice(
                     storeProduct.price || storeProduct.product?.base_price || 0,
@@ -45,7 +47,7 @@ export function ProductGrid({ products, columns = 3 }: ProductGridProps) {
                   )}
                 </p>
                 <button 
-                  className="px-4 py-2 rounded-md text-white transition-colors"
+                  className="px-4 py-2 rounded-md text-white transition-all transform hover:scale-105 duration-200"
                   onClick={(e) => {
                     e.stopPropagation();
                     if (storeProduct.product) {
