@@ -4,6 +4,6 @@
   functions = "netlify/functions"
 
 [[redirects]]
-  from = "/*"e
+  from = "/*"
   to = "/index.html"
   status = 200
