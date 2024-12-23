@@ -45,9 +45,14 @@ export const handler: Handler = async (event) => {
       success_url: data.success_url,
       cancel_url: data.cancel_url
     });
+    
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
+      billing_address_collection: 'required',
+      shipping_address_collection: {
+        allowed_countries: ['DK', 'SE', 'NO', 'FI', 'DE']
+      },
       line_items: data.items.map(item => ({
         price_data: {
           currency: 'dkk',
@@ -60,6 +65,10 @@ export const handler: Handler = async (event) => {
         quantity: item.quantity
       })),
       mode: 'payment',
+      customer_creation: 'always',
+      payment_intent_data: {
+        capture_method: 'automatic'
+      },
       success_url: data.success_url,
       cancel_url: data.cancel_url
     });
