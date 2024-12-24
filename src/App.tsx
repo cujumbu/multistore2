@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from './hooks/useAuth';
 import AdminLayout from './routes/admin/layout';
 import { useStore } from './hooks/useStore';
@@ -11,7 +12,7 @@ import ProductsPage from './routes/admin/products/ProductsPage';
 import SettingsPage from './routes/admin/settings/SettingsPage';
 
 function App() {
-  const { store, isLoading } = useStore();
+  const { store, settings, isLoading } = useStore();
   const { user, isLoading: authLoading } = useAuth();
   const isLoginRoute = window.location.pathname === '/login';
 
@@ -35,6 +36,13 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Helmet>
+        <title>{settings?.seo_settings?.title || 'Tasker'}</title>
+        <meta name="description" content={settings?.seo_settings?.description} />
+        {settings?.seo_settings?.keywords?.map((keyword, index) => (
+          <meta key={index} name="keywords" content={keyword} />
+        ))}
+      </Helmet>
       <Routes>
         {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
